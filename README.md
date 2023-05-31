@@ -5,15 +5,17 @@
 ![GDAD_logo_blue.png](/assets/img/GDAD%E4%B8%BB%E9%A1%B5_%E6%A1%8C%E9%9D%A2%E7%89%88.jpeg)
 
 ---
+## GDAD介绍
 
+GDAD的核心目的是构建G-四链体与疾病的相关性。G-四链体的数据来自于文献收集，疾病相关数据来自于DisGeNET的Gene-Disease Association（GDA）数据，基因信息来自于[Gencode](https://www.gencodegenes.org/human/release_19.html)数据库。除了可以根据G-四链体、基因、GDA数据本身的属性进行查询，还能彼此查询。
 ## 软件开发环境
 
 |名称|版本|链接|
 |:---:|:---:|:---:|
-|[Python](#Python)|3.11.2|<https://www.python.org/downloads/release/python-3112/>|
-|[Django](#Django)|4.1.7|<https://docs.djangoproject.com/zh-hans/4.1/intro/install/>|
-|[MySQL](#MySQL)|8.0.32|<https://dev.mysql.com/downloads/installer/>|
-|[Bootstrap](#Bootstrap)|4.6.2|<https://github.com/twbs/bootstrap/releases/tag/v4.6.2>|
+|[Python](https://github.com/LawrenceLiu023/GDAD#Python)|3.11.2|<https://www.python.org/downloads/release/python-3112/>|
+|[Django](https://github.com/LawrenceLiu023/GDAD#Django)|4.1.7|<https://docs.djangoproject.com/zh-hans/4.1/intro/install/>|
+|[MySQL](https://github.com/LawrenceLiu023/GDAD#MySQL)|8.0.32|<https://dev.mysql.com/downloads/installer/>|
+|[Bootstrap](https://github.com/LawrenceLiu023/GDAD#Bootstrap)|4.6.2|<https://github.com/twbs/bootstrap/releases/tag/v4.6.2>|
 
 ### Python {#Python}
 
