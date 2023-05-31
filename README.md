@@ -42,7 +42,7 @@ pip install mysqlclient
 
 - `pylint-django`：让vscode的代码检查能支持django的语法而不会报错。相关教程可以搜索到。
 - `django-bootstrap4`：无缝融合django和bootstrap4，非必要。可以选择手动安装Bootstrap样式文件。链接：<https://pypi.org/project/django-bootstrap4/>
-- `markdown`：`views.py`中的视图函数利用此包，直接从`/mysite/gdad/template`目录读取markdown文件的内容，并渲染为适合html的文本内容，从而在网页上显示渲染完成的markdown文档。所有需要的markdown文档都在此目录下，与html模板一同存放，都属于前端设计内容。
+- `markdown`：`views.py`中的视图函数利用此包，直接从`mysite/gdad/template`目录读取markdown文件的内容，并渲染为适合html的文本内容，从而在网页上显示渲染完成的markdown文档。所有需要的markdown文档都在此目录下，与html模板一同存放，都属于前端设计内容。
 
 ### Django
 
@@ -188,9 +188,6 @@ Django使用了`URLconfs`来配置，将URL和视图关联起来，`URLconfs`将
 
 默认的存储引擎是InnoDB，这个引擎是完全事务性的，并且支持外键引用。这是推荐的选择。
 
-设置密码：
-MySQL Root Password: liujiahuan
-
 推荐字符集设置"utf8mb3"即可，"utf8mb4"完全兼容utf-8，用四个字节存储更多的字符，v主要是支持了emoji表情。
 排序规则使用"utf8mb3"默认的"utf8mb3_general_ci"，ci表示大小写不敏感case insensitive。
 
@@ -216,9 +213,9 @@ GDAD包含3个数据表：
 
 ## 前端设计
 
-设计主题蓝色：RGB：(0,123,255), HEX：#007bff
+设计主题蓝色：RGB：(0,123,255)， HEX：#007bff
 
-前端使用的一些图片素材静态文件存放在`/mysite/gdad/static/gdad`。
+前端使用的一些图片素材静态文件存放在`mysite/gdad/static/gdad`。
 
 ### 模板继承
 
@@ -243,8 +240,8 @@ GDAD包含3个数据表：
 
 ## 数据导入
 
-数通过自动化代码可以实现把原始文件自动转换为适合导入数据库的格式，然后可以导入MySQL数据库。自动化代码存放路径为`/scripts/gdad_data_import.py`.
-`/scripts/gdad_chr.tsv`中存储了GDAD允许的全部染色体名称，在`/scripts/gdad_data_import.py`的数据处理过程中会使用到该文件，从而剔除一些冗余的染色体名称。
+数通过自动化代码可以实现把原始文件自动转换为适合导入数据库的格式，然后可以导入MySQL数据库。自动化代码存放路径为`scripts/gdad_data_import.py`.
+`scripts/gdad_chr.tsv`中存储了GDAD允许的全部染色体名称，在`scripts/gdad_data_import.py`的数据处理过程中会使用到该文件，从而剔除一些冗余的染色体名称。
 
 ### DisGeNET
 
@@ -256,13 +253,14 @@ Python API代码示例：
 
 ```python
 '''
-Script example to use the DisGeNET REST API with the new authentication system
+使用新的认证方法访问DisGeNET REST API的代码示例。
 '''
 
-#For this example we are going to use the python default http library
+# 使用Python默认http库
 import requests
 
 #Build a dict with the following format, change the value of the two keys your DisGeNET account credentials, if you don't have an account you can create one here https://www.disgenet.org/signup/
+# 使用下面的格式创建一个字典，把两个键的值改成DisGeNET的账号密码，如果没有账号密码，可以在这里创建一个：https://www.disgenet.org/signup/
 auth_params = {"email":"change@this.email","password":"changethis"}
 
 api_host = "https://www.disgenet.org/api"
@@ -273,9 +271,10 @@ try:
     r = s.post(api_host+'/auth/', data=auth_params)
     if(r.status_code == 200):
         #Lets store the api key in a new variable and use it again in new requests
+        # 保存API密钥，在新的requests中再次使用
         json_response = r.json()
         api_key = json_response.get("token")
-        print(api_key + "This is your user API key.") #Comment this line if you don't want your API key to show up in the terminal
+        print(api_key + "This is your user API key.") # 如果不想在终端里显示你的API密钥，就注释掉这一行
     else:
         print(r.status_code)
         print(r.text)
@@ -284,12 +283,13 @@ except requests.exceptions.RequestException as req_ex:
     print("Something went wrong with the request.")
 
 if api_key:
-    #Add the api key to the requests headers of the requests Session object in order to use the restricted endpoints.
+    # 在requests Session对象的requests header中添加API密钥，来使用受限的endpoints
     s.headers.update({"Authorization": "Bearer %s" % api_key})
-    #Lets get all the diseases associated to a gene eg. APP (EntrezID 351) and restricted by a source.
+    # 获得一个基因相关的所有及疾病，可以限制数据源。这里是以APP（EntrezID 351）为例，并且限制了数据来源。
     gda_response = s.get(api_host+'/gda/gene/351', params={'source':'UNIPROT'})
     print(gda_response.json())
 
+# 关闭会话
 if s:
     s.close()
 ```
