@@ -247,7 +247,7 @@ GDAD包含3个数据表：
 
 疾病与基因的关系数据库。收集了大量与人类疾病相关的变异和基因。整合了公共数据库、GWAS目录、动物模型和科学文献的数据。提供了一些原始指标，以帮助确定基因型与表型关系的优先级。可以通过web接口、Cytoscape应用程序、RDF SPARQL终端，几种编程语言的脚本和R包访问这些信息。DisGeNET提供了访问数据库的python、R等的API：[DisGeNET REST API](https://www.disgenet.org/api/)。
 
-本数据库主要关注的数据类型是基因和疾病相关的数据Gene-Disease Associations(GDAs)。关于数据来源的描述在这个链接中：<https://www.disgenet.org/dbinfo#section44>。其中描述了一些数据来源数据库。我认为[The Clinical Genome Resource](https://www.clinicalgenome.org/)数据库的内容比较有用，可以直接提供基因gene symbol与哪个疾病相关，但是缺少一些其他的信息。好处是可以直接下载。
+本数据库主要关注的数据类型是基因和疾病相关的数据Gene-Disease Associations(GDAs)。关于数据来源的描述在这个链接中：<https://www.disgenet.org/dbinfo#section44>。
 
 Python API代码示例：
 
