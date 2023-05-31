@@ -5,9 +5,11 @@
 ![GDAD_logo_blue.png](/assets/img/GDAD%E4%B8%BB%E9%A1%B5_%E6%A1%8C%E9%9D%A2%E7%89%88.jpeg)
 
 ---
+
 ## GDAD介绍
 
-GDAD的核心目的是构建G-四链体与疾病的相关性。G-四链体的数据来自于文献收集，疾病相关数据来自于DisGeNET的Gene-Disease Association（GDA）数据，基因信息来自于[Gencode](https://www.gencodegenes.org/human/release_19.html)数据库。除了可以根据G-四链体、基因、GDA数据本身的属性进行查询，还能彼此查询。
+GDAD的核心目的是构建G-四链体与疾病的相关性。G-四链体的数据来自于文献收集，疾病相关数据来自于[DisGeNET](https://github.com/LawrenceLiu023/GDAD#DisGeNET)的Gene-Disease Association（GDA）数据，基因信息来自于[Gencode](https://www.gencodegenes.org/human/release_19.html)数据库。除了可以根据G-四链体、基因、GDA数据本身的属性进行查询，还能彼此查询。
+
 ## 软件开发环境
 
 |名称|版本|链接|
@@ -34,7 +36,7 @@ pip install mysqlclient
 - `django-bootstrap4`：无缝融合django和bootstrap4，非必要。可以选择手动安装Bootstrap样式文件。链接：<https://pypi.org/project/django-bootstrap4/>
 - `markdown`：`views.py`中的视图函数利用此包，直接从`/mysite/gdad/template`目录读取markdown文件的内容，并渲染为适合html的文本内容，从而在网页上显示渲染完成的markdown文档。所有需要的markdown文档都在此目录下，与html模板一同存放，都属于前端设计内容。
 
-### Django {#Django}
+### Django
 
 版本：4.1.7
 
@@ -170,7 +172,7 @@ Django使用了`URLconfs`来配置，将URL和视图关联起来，`URLconfs`将
 
 `{% static %}`模板标签在静态文件（例如样式表css）中是不可用的，因为它们不是由Django生成的。你应该始终使用**相对路径**在你的静态文件之间相互引用，因为这样你可以更改`STATIC_URL`（由`static`模板标签使用来生成URL），而无需修改大量的静态文件。
 
-### MySQL {#MySQL}
+### MySQL
 
 版本 8.0.32
 
@@ -184,7 +186,7 @@ MySQL Root Password: liujiahuan
 推荐字符集设置"utf8mb3"即可，"utf8mb4"完全兼容utf-8，用四个字节存储更多的字符，v主要是支持了emoji表情。
 排序规则使用"utf8mb3"默认的"utf8mb3_general_ci"，ci表示大小写不敏感case insensitive。
 
-### Bootstrap {#Bootstrap}
+### Bootstrap
 
 版本：v4.6.2
 
@@ -222,7 +224,7 @@ MySQL Root Password: liujiahuan
 数通过自动化代码可以实现把原始文件自动转换为适合导入数据库的格式，然后可以导入MySQL数据库。自动化代码存放路径为`/scripts/gdad_data_import.py`.
 `/scripts/gdad_chr.tsv`中存储了GDAD允许的全部染色体名称，在`/scripts/gdad_data_import.py`的数据处理过程中会使用到该文件，从而剔除一些冗余的染色体名称。
 
-### DisGeNET介绍
+### DisGeNET
 
 疾病与基因的关系数据库。收集了大量与人类疾病相关的变异和基因。整合了公共数据库、GWAS目录、动物模型和科学文献的数据。提供了一些原始指标，以帮助确定基因型与表型关系的优先级。可以通过web接口、Cytoscape应用程序、RDF SPARQL终端，几种编程语言的脚本和R包访问这些信息。DisGeNET提供了访问数据库的python、R等的API：[DisGeNET REST API](https://www.disgenet.org/api/)。
 
