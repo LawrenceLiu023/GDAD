@@ -17,7 +17,7 @@ GDAD的核心目的是构建G-四链体与疾病的相关性。G-四链体的数
 |[MySQL](https://github.com/LawrenceLiu023/GDAD#MySQL)|8.0.32|<https://dev.mysql.com/downloads/installer/>|
 |[Bootstrap](https://github.com/LawrenceLiu023/GDAD#Bootstrap)|4.6.2|<https://github.com/twbs/bootstrap/releases/tag/v4.6.2>|
 
-### Python {#Python}
+### Python
 
 版本：3.11.2
 
