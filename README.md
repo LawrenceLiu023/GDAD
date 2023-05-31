@@ -10,6 +10,14 @@
 
 GDAD的核心目的是构建G-四链体与疾病的相关性。G-四链体的数据来自于文献收集，疾病相关数据来自于[DisGeNET](https://github.com/LawrenceLiu023/GDAD#DisGeNET)的Gene-Disease Association（GDA）数据，基因信息来自于[Gencode](https://www.gencodegenes.org/human/release_19.html)数据库。除了可以根据G-四链体、基因、GDA数据本身的属性进行查询，还能彼此查询。
 
+特性：
+
+- 响应式布局，适应多种设备
+- 现代化GUI
+- 不同数据之间可相互查询相关性
+- 可持续运营
+- 权威可靠的数据
+
 ## 软件开发环境
 
 |名称|版本|链接|
@@ -191,6 +199,20 @@ MySQL Root Password: liujiahuan
 版本：v4.6.2
 
 大版本选用v4，这个较新且稳定，同时文档比较完善。读音是boot strap，而不是boots trap，t会被快速带过。
+
+## 数据表
+
+GDAD包含3个数据表：
+
+- `G4`
+- `GENE`
+- `GDA`
+
+`G4`的数据来自于文献中收集的基因组高通量测序数据。
+
+`GENE`的数据来自于GENCODE数据库，使用[Human Release 19 Comprehensive gene annotaion](https://www.gencodegenes.org/human/release_19.html)
+
+`GDA`的数据通过使用[DisGeNET REST API](https://www.disgenet.org/api/)，使用Python脚本从DisGeNET获取。条件为`GENE`数据表中的全部基因，数据来源限制为CURATED。
 
 ## 前端设计
 
