@@ -1,0 +1,41 @@
+{% extends "gdad/base.html" %}
+{% load static %}
+<!-- 导航栏，每个页面都会不同所以需要单独设置 -->
+{% block navigator %}
+    <div class="d-flex justify-content-end justify-content-sm-start align-items-center">
+        <div class="flex-fill mx-2">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'gdad:g4' %}">G4</a>
+            </li>
+        </div>
+        <div class="flex-fill mx-2">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'gdad:genesequence' %}">GENE</a>
+            </li>
+        </div>
+        <div class="flex-fill mx-2">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'gdad:gda' %}">GDA</a>
+            </li>
+        </div>
+    </div>
+{% endblock navigator %}
+{% block main %}
+    <!-- 显示一张logo -->
+    <div class="container-fulid p-5 bg-light">
+        <div class="col-sm-2 offset-sm-5 col-6 offset-3">
+            <img decoding="async"
+                 class="img-fluid mx-auto d-block"
+                 src="{% static 'gdad/GDAD_logo_blue.png' %}"
+                 alt="gdad">
+        </div>
+    </div>
+    <!-- 加一条分割线 -->
+    <hr class="my-0"/>
+    <!-- 显示markdown文档 -->
+    <div class="d-sm-flex p-5">
+        <div class="card flex-fill p-5">
+            <div class="card-body">{{ markdown_html|safe }}</div>
+        </div>
+    </div>
+{% endblock main %}

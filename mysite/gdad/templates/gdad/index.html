@@ -1,0 +1,79 @@
+{% extends "gdad/base.html" %}
+{% load static %}
+{% block main %}
+    <!-- jumbotron -->
+    <div class="jumbotron my-0 bg-light">
+        <!-- 响应式的主题logo -->
+        <div class="row my-sm-2 my-4">
+            <div class="col-sm-2 offset-sm-5 col-6 offset-3">
+                <img decoding="async"
+                     src="{% static 'gdad/GDAD_logo_blue.png' %}"
+                     alt="GDAD"
+                     style="width:100%"
+                     class="img-fluid mx-auto d-block"/>
+            </div>
+        </div>
+        <h1 class="display-3 font-weight-bold">GDAD</h1>
+        <p class="lead font-weight-bold">G4-Disease Association Database</p>
+        <!-- 水平分割线 -->
+        <hr class="my-4" />
+        <!-- 数据库数据数目展示 -->
+        <div class="d-sm-flex flex-row">
+            <div class="p-2 align-self-start">
+                <h2 class="text-danger">{{ all_g4_list_len }}</h2>
+            </div>
+            <div class="p-2 align-self-start">
+                <span>G4 data</span>
+            </div>
+            <div class="p-2 align-self-start">
+                <h2 class="text-warning">{{ all_genesequence_list_len }}</h2>
+            </div>
+            <div class="p-2 align-self-start">
+                <span>Gene data</span>
+            </div>
+            <div class="p-2 align-self-start">
+                <h2 class="text-success">{{ all_gda_list_len }}</h2>
+            </div>
+            <div class="p-2 align-self-start">
+                <span>Gene-Disease Association data</span>
+            </div>
+        </div>
+        <!-- 更多介绍，还没写介绍页面，试试能不能用markdown渲染，更加方便维护。 -->
+        <a class="btn btn-outline-primary btn-lg mt-3"
+           href="{% url 'gdad:readme' %}"
+           role="button">Learn more</a>
+    </div>
+    <hr class="my-0"/>
+    <!-- 各个功能卡片按钮 -->
+    <div class="container-fluid my-3">
+        <div class="d-sm-flex align-items-sm-stretch justify-content-around">
+            <div class="p-3 flex-sm-fill">
+                <a href="{% url 'gdad:g4' %}">
+                    <button type="button" class="btn btn-primary btn-block bg-danger border-light h-100">
+                        <h1>G4</h1>
+                        <hr class="my-2"/>
+                        <p>Search G4s</p>
+                    </button>
+                </a>
+            </div>
+            <div class="p-3 flex-sm-fill">
+                <a href="{% url 'gdad:genesequence' %}">
+                    <button type="button" class="btn btn-primary btn-block bg-warning border-light h-100">
+                        <h1>GENE</h1>
+                        <hr class="my-2"/>
+                        <p>Search genes</p>
+                    </button>
+                </a>
+            </div>
+            <div class="p-3 flex-sm-fill">
+                <a href="{% url 'gdad:gda' %}">
+                    <button type="button" class="btn btn-primary btn-block bg-success border-light h-100">
+                        <h1>GDA</h1>
+                        <hr class="my-2"/>
+                        <p>Search association between G4s, genes and diseases</p>
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

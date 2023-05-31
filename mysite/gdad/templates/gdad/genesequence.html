@@ -1,0 +1,151 @@
+{% extends "gdad/base.html" %}
+{% load static %}
+<!-- 导航栏，每个页面都会不同所以需要单独设置 -->
+{% block navigator %}
+    <div class="d-flex justify-content-end justify-content-sm-start align-items-center">
+        <div class="flex-fill mx-2">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'gdad:g4' %}">G4</a>
+            </li>
+        </div>
+        <div class="flex-fill mx-2">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'gdad:genesequence' %}">GENE</a>
+            </li>
+        </div>
+        <div class="flex-fill mx-2">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'gdad:gda' %}">GDA</a>
+            </li>
+        </div>
+    </div>
+{% endblock navigator %}
+{% block main %}
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 这部分主要为表单，输入查询条件 -->
+            <!-- 从Gene本身属性查询Gene -->
+            <div class="col-sm-3 p-4">
+                <div class="card bg-light my-1">
+                    <div class="card-header lead">Search GENE</div>
+                    <div calss="card-body">
+                        <div class="container-fluid p-3">
+                            <form action="{% url 'gdad:genesequence_search' 'genesequence' %}"
+                                  method="get">
+                                <!-- id -->
+                                <div class="form-group">
+                                    <label for="id">ID:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="id"
+                                           name="id"
+                                           placeholder="1, 2, ..."/>
+                                </div>
+                                <!-- 染色体 -->
+                                <div class="form-group">
+                                    <label for="chr">Chromsome:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="chr"
+                                           name="chr"
+                                           placeholder="chr1, chr2, ..."/>
+                                </div>
+                                <!-- 起始坐标 -->
+                                <div class="form-group">
+                                    <label for="start">Start:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="start"
+                                           name="start"
+                                           placeholder="0-based"/>
+                                </div>
+                                <!-- 终止坐标 -->
+                                <div class="form-group">
+                                    <label for="end">End:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="end"
+                                           name="end"
+                                           placeholder="0-based"/>
+                                </div>
+                                <!-- 基因名 -->
+                                <div class="form-group">
+                                    <label for="gene_symbol">Gene symbol:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="gene_symbol"
+                                           name="gene_symbol"
+                                           placeholder="TP53, TNF, ..."/>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Search Genes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- 从G4出发查询Gene -->
+                <div class="card bg-light my-1">
+                    <div class="card-header lead">Search GENE by G4 data</div>
+                    <div calss="card-body">
+                        <div class="container-fluid p-3">
+                            <form action="{% url 'gdad:genesequence_search' 'g4' %}" method="get">
+                                <!-- G4 ID -->
+                                <div class="form-group">
+                                    <label for="g4_id">G4 ID:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="g4_id"
+                                           name="g4_id"
+                                           placeholder="1, 2, ..."/>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Search Genes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- 从GDA出发查询Gene -->
+                <div class="card bg-light my-1">
+                    <div class="card-header lead">Search GENE by GDA data</div>
+                    <div calss="card-body">
+                        <div class="container-fluid p-3">
+                            <form action="{% url 'gdad:genesequence_search' 'gda' %}" method="get">
+                                <!-- gda_id -->
+                                <div class="form-group">
+                                    <label for="gda_id">GDA ID:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="gda_id"
+                                           name="gda_id"
+                                           placeholder="1, 2, ..."/>
+                                </div>
+                                <!-- 疾病名 -->
+                                <div class="form-group">
+                                    <label for="disease_name">Disease name:</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="disease_name"
+                                           name="disease_name"
+                                           placeholder=""/>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Search Genes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 这部分呈现查询的结果 -->
+            <div class="col-sm-9 p-4">
+                <!-- 这块内容默认显示markdown搜索说明文档 -->
+                <!-- 在搜索结果中直接继承修改显示搜索结果 -->
+                {% block search_detail %}
+                    {{ markdown_html|safe }}
+                {% endblock search_detail %}
+            </div>
+        </div>
+    </div>
+{% endblock main %}

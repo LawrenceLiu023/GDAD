@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <!-- 必须的 meta 标签 -->
+        <meta charset="utf-8" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <!-- Bootstrap 的 CSS 文件 -->
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+              integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+              crossorigin="anonymous"/>
+        <!-- 窗口标题 -->
+        <title>GDAD | G4-Disease Association Database</title>
+        <!-- 静态文件导入 -->
+        {% load static %}
+        <!-- icon -->
+        <link rel="shotcut icon"
+              href="{% static 'gdad/GDAD_logo_blue_16x16.ico' %}"/>
+        <!-- 方便追加其他头内容 -->
+        {% block head_addon %}
+        {% endblock head_addon %}
+    </head>
+    <body>
+        <!-- 导航栏的框架，确定底色和logo，按钮需要具体调整 -->
+        <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+            <a class="navbar-brand" href="{% url 'gdad:index' %}">
+                <img decoding="async"
+                     src="{% static 'gdad/GDAD_logo_white.png' %}"
+                     alt="GDAD"
+                     style="width:32px">
+                <span class="mx-3">GDAD</span>
+            </a>
+            <ul class="navbar-nav">
+                {% block navigator %}
+                {% endblock navigator %}
+            </ul>
+        </nav>
+        <!-- 主要内容全部放在一个无边界的container-fluid中 -->
+        <div class="container-fluid p-0">
+            {% block main %}
+            {% endblock main %}
+        </div>
+        <!-- Bootstrap4 JavaScript 文件是可选的。从以下两种建议中选择一个即可！ -->
+        <!-- 选项 1：jQuery 和 Bootstrap 集成包（集成了 Popper） -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+                crossorigin="anonymous"></script>
+        <!-- 方便追加其他脚本内容 -->
+        {% block script_addon %}
+        {% endblock script_addon %}
+    </body>
+</html>

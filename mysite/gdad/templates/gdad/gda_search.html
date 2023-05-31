@@ -1,0 +1,224 @@
+{% extends "gdad/gda.html" %}
+{% block head_addon %}
+    <!-- bootstrap-table -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css"/>
+{% endblock head_addon %}
+{% load static %}
+{% block search_detail %}
+    <!-- 显示查询条件 -->
+    <!-- search_type=gda -->
+    {% if search_type == "gda" %}
+        <h1>Search criteria for GDA</h1>
+        <table class="table table-hover table-responsive user-select-all">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <th>{{ input_id }}</th>
+                </tr>
+                <tr>
+                    <th>Disease name</th>
+                    <th>{{ input_disease_name }}</th>
+                </tr>
+                <tr>
+                    <th>Gene symbol</th>
+                    <th>{{ input_gene_symbol }}</th>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+    <!-- search_type=g4 -->
+    {% if search_type == "g4" %}
+        <h1>Search criteria for GDA</h1>
+        <table class="table table-hover table-responsive user-select-all">
+            <tbody>
+                <tr>
+                    <th>G4 ID</th>
+                    <th>{{ input_g4_id }}</th>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+    <!-- search_type=genesequence -->
+    {% if search_type == "genesequence" %}
+        <h1>Search criteria for GDA</h1>
+        <table class="table table-hover table-responsive user-select-all">
+            <tbody>
+                <tr>
+                    <th>GENE ID</th>
+                    <th>{{ input_genesequence_id }}</th>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+    <!-- 显示genesequence_queryset结果的表格 -->
+    <!-- 表格内容导出功能 bootstrap-table extension: table export -->
+    <div class="d-sm-flex align-items-sm-center justify-content-start">
+        <div class="p-0">
+            <h1>
+                Search results
+            </h1>
+        </div>
+        <div class="mx-4">
+            <button type="button"
+                    class="btn btn-outline-primary h-100"
+                    id="search_result_export">
+                Export
+            </button>
+        </div>
+    </div>
+    <div class="overflow-auto vh-100">
+        <table class="table-sm table-borderless table-responsive table-hover border-0"
+               id="search_result_table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>gene_id</th>
+                    <th>gene_symbol</th>
+                    <th>uniprot_id</th>
+                    <th>gene_dsi</th>
+                    <th>gene_dpi</th>
+                    <th>gene_pli</th>
+                    <th>protein_class</th>
+                    <th>protein_class_name</th>
+                    <th>disease_id</th>
+                    <th>disease_name</th>
+                    <th>
+                        disease_class
+                    </th>
+                    <th>
+                        disease_class_name
+                    </th>
+                    <th>
+                        disease_type
+                    </th>
+                    <th>
+                        disease_semantic_type
+                    </th>
+                    <th>
+                        gda_score
+                    </th>
+                    <th>
+                        ei
+                    </th>
+                    <th>
+                        el
+                    </th>
+                    <th>
+                        year_initial
+                    </th>
+                    <th>
+                        year_final
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="user-select-all">
+                {% for curr_gda in gda_queryset %}
+                    <tr>
+                        <td>
+                            {{ curr_gda.id }}
+                        </td>
+                        <td>
+                            {{ curr_gda.id }}
+                        </td>
+                        <td>
+                            {{ curr_gda.gene_symbol }}
+                        </td>
+                        <td>
+                            {{ curr_gda.uniprot_id }}
+                        </td>
+                        <td>
+                            {{ curr_gda.gene_dsi }}
+                        </td>
+                        <td>
+                            {{ curr_gda.gene_dpi }}
+                        </td>
+                        <td>
+                            {{ curr_gda.gene_pli }}
+                        </td>
+                        <td>
+                            {{ curr_gda.protein_class }}
+                        </td>
+                        <td>
+                            {{ curr_gda.protein_class_name }}
+                        </td>
+                        <td>
+                            {{ curr_gda.disease_id }}
+                        </td>
+                        <td>
+                            {{ curr_gda.disease_name }}
+                        </td>
+                        <td>
+                            {{ curr_gda.disease_class }}
+                        </td>
+                        <td>
+                            {{ curr_gda.disease_class_name }}
+                        </td>
+                        <td>
+                            {{ curr_gda.disease_type }}
+                        </td>
+                        <td>
+                            {{ curr_gda.disease_semantic_type }}
+                        </td>
+                        <td>
+                            {{ curr_gda.gda_score }}
+                        </td>
+                        <td>
+                            {{ curr_gda.ei }}
+                        </td>
+                        <td>
+                            {{ curr_gda.el }}
+                        </td>
+                        <td>
+                            {{ curr_gda.year_initial }}
+                        </td>
+                        <td>
+                            {{ curr_gda.year_final }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock search_detail %}
+{% block script_addon %}
+    <!-- bootstrap-table js -->
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+    <!-- bootstrap-table extension: table export -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script> -->
+    <!-- 这行似乎是另一种导入这个插件的方法，但是需要手动下载插件再指定路径 -->
+    <script type="text/javascript" src="{% static 'js/tableExport.min.js' %}"></script>
+    <!-- 导出表格 -->
+    <script>
+    $("#search_result_table").bootstrapTable({
+        columns: [
+            { field: "id", title: "id" },
+            { field: "gene_id", title: "gene_id" },
+            { field: "gene_symbol", title: "gene_symbol" },
+            { field: "uniprot_id", title: "uniprot_id" },
+            { field: "gene_dsi", title: "gene_dsi" },
+            { field: "gene_dpi", title: "gene_dpi" },
+            { field: "gene_pli", title: "gene_pli" },
+            { field: "protein_class", title: "protein_class" },
+            { field: "protein_class_name", title: "protein_class_name" },
+            { field: "disease_id", title: "disease_id" },
+            { field: "disease_name", title: "disease_name" },
+            { field: "disease_class", title: "disease_class" },
+            { field: "disease_class_name", title: "disease_class_name" },
+            { field: "disease_type", title: "disease_type" },
+            { field: "disease_semantic_type", title: "disease_semantic_type" },
+            { field: "gda_score", title: "gda_score" },
+            { field: "ei", title: "ei" },
+            { field: "el", title: "el" },
+            { field: "year_initial", title: "year_initial" },
+            { field: "year_final", title: "year_final" },
+        ],
+    });
+    $("#search_result_export").click(function () {
+        $("#search_result_table").tableExport({
+            type: "tsv",
+            fileName: "search_result",
+        });
+    });
+    </script>
+{% endblock script_addon %}

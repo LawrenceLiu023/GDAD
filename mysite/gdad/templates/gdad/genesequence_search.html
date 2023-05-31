@@ -1,0 +1,143 @@
+{% extends "gdad/genesequence.html" %}
+{% block head_addon %}
+    <!-- bootstrap-table -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css"/>
+{% endblock head_addon %}
+{% load static %}
+{% block search_detail %}
+    <!-- 显示查询条件 -->
+    <!-- search_type=genesequence -->
+    {% if search_type == "genesequence" %}
+        <h1>Search criteria for GENE</h1>
+        <table class="table table-hover table-responsive user-select-all">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <th>{{ input_id }}</th>
+                </tr>
+                <tr>
+                    <th>Chromsome</th>
+                    <th>{{ input_chr }}</th>
+                </tr>
+                <tr>
+                    <th>Start</th>
+                    <th>{{ input_start }}</th>
+                </tr>
+                <tr>
+                    <th>End</th>
+                    <th>{{ input_end }}</th>
+                </tr>
+                <tr>
+                    <th>Gene symbol</th>
+                    <th>{{ input_gene_symbol }}</th>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+    <!-- search_type=g4 -->
+    {% if search_type == "g4" %}
+        <h1>Search criteria for GENE</h1>
+        <table class="table table-hover table-responsive user-select-all">
+            <tbody>
+                <tr>
+                    <th>G4 ID</th>
+                    <th>{{ input_g4_id }}</th>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+    <!-- search_type=gda -->
+    {% if search_type == "gda" %}
+        <h1>Search criteria for GENE</h1>
+        <table class="table table-hover table-responsive user-select-all">
+            <tbody>
+                <tr>
+                    <th>GDA ID</th>
+                    <th>{{ input_gda_id }}</th>
+                </tr>
+                <tr>
+                    <th>Disease name</th>
+                    <th>{{ input_disease_name }}</th>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %}
+    <!-- 显示genesequence_queryset结果的表格 -->
+    <!-- 表格内容导出功能 bootstrap-table extension: table export -->
+    <div class="d-sm-flex align-items-sm-center justify-content-start">
+        <div class="p-0">
+            <h1>
+                Search results
+            </h1>
+        </div>
+        <div class="mx-4">
+            <button type="button"
+                    class="btn btn-outline-primary h-100"
+                    id="search_result_export">
+                Export
+            </button>
+        </div>
+    </div>
+    <div class="overflow-auto vh-100">
+        <table class="table-sm table-borderless table-responsive table-hover border-0"
+               id="search_result_table">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>chr</th>
+                    <th>start</th>
+                    <th>end</th>
+                    <th>gene_symbol</th>
+                </tr>
+            </thead>
+            <tbody class="user-select-all">
+                {% for curr_genesequence in genesequence_queryset %}
+                    <tr>
+                        <td>
+                            {{ curr_genesequence.id }}
+                        </td>
+                        <td>
+                            {{ curr_genesequence.chr }}
+                        </td>
+                        <td>
+                            {{ curr_genesequence.start }}
+                        </td>
+                        <td>
+                            {{ curr_genesequence.end }}
+                        </td>
+                        <td>
+                            {{ curr_genesequence.gene_symbol }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock search_detail %}
+{% block script_addon %}
+    <!-- bootstrap-table js -->
+    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
+    <!-- bootstrap-table extension: table export -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script> -->
+    <!-- 这行似乎是另一种导入这个插件的方法，但是需要手动下载插件再指定路径 -->
+    <script type="text/javascript" src="{% static 'js/tableExport.min.js' %}"></script>
+    <!-- 导出表格 -->
+    <script>
+    $("#search_result_table").bootstrapTable({
+        columns: [
+            { field: "id", title: "id" },
+            { field: "chr", title: "chr" },
+            { field: "start", title: "start" },
+            { field: "end", title: "end" },
+            { field: "gene_symbol", title: "gene_symbol" },
+        ],
+    });
+    $("#search_result_export").click(function () {
+        $("#search_result_table").tableExport({
+            type: "tsv",
+            fileName: "search_result",
+        });
+    });
+    </script>
+{% endblock script_addon %}
