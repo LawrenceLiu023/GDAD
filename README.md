@@ -1,6 +1,6 @@
 # README
 
-![GDAD_home_pc.png](/assets/img/GDAD%E4%B8%BB%E9%A1%B5_%E6%A1%8C%E9%9D%A2%E7%89%88.jpeg)
+![GDAD_home_pc.png](assets\img\GDAD主页_桌面版.jpeg)
 
 本目录为疾病相关G-四链体数据库G4-Disease Association Database (GDAD)的目录，本文档说明了GDAD的开发环境以及设计框架等信息。
 
@@ -224,6 +224,10 @@ GDAD包含3个数据表：
 
 `GDA`的数据通过使用[DisGeNET REST API](https://www.disgenet.org/api/)，使用Python脚本从DisGeNET获取。条件为`GENE`数据表中的全部基因，数据来源限制为CURATED。
 
+数据库实体-联系图：
+
+![E-R.png](assets\img\ER图.png)
+
 ## 前端设计
 
 设计主题蓝色：RGB：(0,123,255)， HEX：#007bff
@@ -231,6 +235,10 @@ GDAD包含3个数据表：
 前端使用的一些图片素材静态文件存放在`mysite/gdad/static/gdad`。
 
 交互类的部件推荐使用主题蓝色进行强调突出，非必要情况尽可能减少不同颜色的使用，提高整洁度。各个功能分区用简单的视觉划分进行提示，避免过多的线条。
+
+网页模板加入了直接渲染Markdown文件的功能，数据库的说明文档网页即使用了此功能，效果如下。
+
+![document.png](assets\img\document.png)
 
 ### 模板继承
 
@@ -249,9 +257,13 @@ GDAD包含3个数据表：
 查询功能与文档中的`QuerySet`条目相关，可以在官方文档中查找各种查询功能的实现。
 `QuerySet`搜索得到的结果，是一个类名为`QuerySet`的对象，基本可以认为是`Set`，它可以转换为列表，可以使用`len()`方法，可以用`[数字]`索引，而且其中的每一个元素是`models.py`中定义的一个类的实例。
 
+![g4.png](assets\img\g4.png)
+
 ## 导出功能
 
 表格可以一键点击选中全部，然后就可以复制到本地了。同时也使用了Bootstrap table的export扩展，加了一个按钮可以直接一键下载文件。
+
+![g4_search.jpeg](assets\img\g4_search.jpeg)
 
 ## 数据导入
 
@@ -308,3 +320,14 @@ if api_key:
 if s:
     s.close()
 ```
+
+## 入门帮助
+
+各个软件工具的使用，上面已经附上了相关的官方文档链接，其中较重要的Django、Bootstrap均有官方中文文档，上手方便。在此对各种软件的使用帮助进一步整合。
+
+|软件工具|帮助链接|
+|:---:|:---|
+|Bootstrap Table Export|<https://bootstrap-table.com/docs/extensions/export/>|
+|Bootstrap|<https://v4.bootcss.com/>|
+|Django|<https://docs.djangoproject.com/zh-hans/4.1/intro/tutorial01/>|
+|Python|<https://docs.python.org/zh-cn/3/>|
