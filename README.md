@@ -326,7 +326,7 @@ if s:
 各个软件工具的使用，上面已经附上了相关的官方文档链接，其中较重要的Django、Bootstrap均有官方中文文档，上手方便。在此对各种软件的使用帮助进一步整合。
 
 |软件工具|帮助链接|
-|:---:|:---|
+|:---:|:---:|
 |Bootstrap Table Export|<https://bootstrap-table.com/docs/extensions/export/>|
 |Bootstrap|<https://v4.bootcss.com/>|
 |Django|<https://docs.djangoproject.com/zh-hans/4.1/intro/tutorial01/>|
@@ -339,3 +339,5 @@ if s:
 单位：东南大学
 
 时间：2023
+
+欢迎提交Pull Request，也欢迎提交Issue讨论。祝G4研究顺利，溜~
