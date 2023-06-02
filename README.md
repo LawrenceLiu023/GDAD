@@ -1,6 +1,6 @@
 # README
 
-![GDAD_logo_blue.png](/assets/img/GDAD%E4%B8%BB%E9%A1%B5_%E6%A1%8C%E9%9D%A2%E7%89%88.jpeg)
+![GDAD_home_pc.png](/assets/img/GDAD%E4%B8%BB%E9%A1%B5_%E6%A1%8C%E9%9D%A2%E7%89%88.jpeg)
 
 本目录为疾病相关G-四链体数据库G4-Disease Association Database (GDAD)的目录，本文档说明了GDAD的开发环境以及设计框架等信息。
 
@@ -18,6 +18,17 @@ GDAD的核心目的是构建G-四链体与疾病的相关性。G-四链体的数
 - 可持续运营
 - 权威可靠的数据
 
+## 目录说明
+
+在本仓库的根目录结构如下：
+
+- `.vscode`：vscode打开工作区的配置，包含了调试Django项目的配置，可以直接从“运行和调试”功能中运行服务器。
+- `assets`：图片等文件，用于在本文档中插入图片。
+- `mysite`：GDAD的Django项目目录，其中为一个完整的项目，实际的Django项目开发只需要这一个文件夹。
+- `scripts`：一些脚本文件，用于数据格式化、数据导入、数据获取等功能。
+- `LICENSE`：许可证。
+- `README.md`：本文档。
+
 ## 软件开发环境
 
 |名称|版本|链接|
@@ -26,6 +37,8 @@ GDAD的核心目的是构建G-四链体与疾病的相关性。G-四链体的数
 |[Django](https://github.com/LawrenceLiu023/GDAD#Django)|4.1.7|<https://docs.djangoproject.com/zh-hans/4.1/intro/install/>|
 |[MySQL](https://github.com/LawrenceLiu023/GDAD#MySQL)|8.0.32|<https://dev.mysql.com/downloads/installer/>|
 |[Bootstrap](https://github.com/LawrenceLiu023/GDAD#Bootstrap)|4.6.2|<https://github.com/twbs/bootstrap/releases/tag/v4.6.2>|
+
+其中对于MySQL的直接操作，推荐使用[Navicat for MySQL](https://www.navicat.com.cn/products/navicat-for-mysql)进行，默认需要付费，有一些方法可以免费使用。
 
 ### Python
 
@@ -54,7 +67,7 @@ pip install mysqlclient
 
 4.1版本的官方中文文档：<https://docs.djangoproject.com/zh-hans/4.1/intro/tutorial01/>
 
-在`mysite`目录下的`__init.py__`添加如下命令，以使用pymysql操作数据库。
+Django默认使用mysqlclient包，作为连接MySQL的驱动程序，可以在`mysite`目录下的`__init.py__`添加如下命令，以使用python包pymysql操作数据库，一般不需要使用。
 
 ```python
 import pymysql
