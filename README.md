@@ -1,6 +1,6 @@
 # README
 
-![GDAD_home_pc.png](\assets\img\GDAD主页_桌面版.jpeg)
+![GDAD_home_pc.png](/assets/img/GDAD主页_桌面版.jpeg)
 
 本目录为疾病相关G-四链体数据库G4-Disease Association Database (GDAD)的目录，本文档说明了GDAD的开发环境以及设计框架等信息。
 
