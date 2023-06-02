@@ -73,36 +73,6 @@ class GeneSequence(models.Model):
         return field_list
 
 
-class Tfbs(models.Model):
-    # tfbs，没啥用
-    chr = models.CharField(max_length=31, default="")
-    start = models.PositiveIntegerField()
-    end = models.PositiveIntegerField()
-    tf = models.CharField(max_length=31, default="")
-    cell_line = models.CharField(max_length=1023, default="")
-
-    def __str__(self):
-        out_list= [self.chr, self.start, self.end, self.tf, self.cell_line]
-        out_list = list(map(lambda x: str(x), out_list))
-        out_str="\t".join(out_list)
-        return out_str
-
-    def get_field_list(self) -> list[str]:
-        """打印字段名列表。
-
-        Returns:
-            field_list (list[str]): 字段名列表。
-        """
-        field_list = [
-            "chr",
-            "start",
-            "end",
-            "tf",
-            "cell_line",
-        ]
-        return field_list
-
-
 class Gda(models.Model):
     # gda
     gene_id = models.CharField(max_length=31, default="")
@@ -127,11 +97,14 @@ class Gda(models.Model):
     year_final = models.PositiveIntegerField()
 
     def __str__(self):
-        out_list=[self.gene_id,
-                  self.gene_symbol,self.disease_id,self.disease_name,
-                  ]
-        out_list=list(map(lambda x:str(x),out_list))
-        out_str="\t".join(out_list)
+        out_list = [
+            self.gene_id,
+            self.gene_symbol,
+            self.disease_id,
+            self.disease_name,
+        ]
+        out_list = list(map(lambda x: str(x), out_list))
+        out_str = "\t".join(out_list)
         return out_str
 
     def get_field_list(self) -> list[str]:

@@ -1,6 +1,6 @@
 # README
 
-![GDAD_home_pc.png](/assets/img/GDAD主页_桌面版.jpeg)
+![GDAD主页_桌面版.jpeg](/assets/img/GDAD主页_桌面版.jpeg)
 
 本目录为疾病相关G-四链体数据库G4-Disease Association Database (GDAD)的目录，本文档说明了GDAD的开发环境以及设计框架等信息。
 
@@ -226,7 +226,7 @@ GDAD包含3个数据表：
 
 数据库实体-联系图：
 
-![E-R.png](/assets/img/ER图.png)
+![ER图.png](/assets/img/ER图.png)
 
 ## 前端设计
 
@@ -331,6 +331,13 @@ if s:
 |Bootstrap|<https://v4.bootcss.com/>|
 |Django|<https://docs.djangoproject.com/zh-hans/4.1/intro/tutorial01/>|
 |Python|<https://docs.python.org/zh-cn/3/>|
+
+本数据库部署过程：
+
+1. 安装各个软件，参见[软件开发环境](https://github.com/LawrenceLiu023/GDAD#软件开发环境)。
+2. 按照Django文档中的介绍，配置连接Django项目和MySQL，会根据Django中的模型结构自动生成各个数据表结构。
+3. 将各个数据表对应的数据文件导入MySQL数据库中对应的数据表，推荐使用Navicat，操作较便捷。也可以选择使用SQL格式的备份文件。
+4. 运行Django项目，在浏览器中打开默认的主页地址即可进入GDAD主页：<http://127.0.0.1:8000/gdad/>
 
 ---
 

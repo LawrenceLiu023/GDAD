@@ -5,15 +5,19 @@
         <meta charset="utf-8" />
         <meta name="viewport"
               content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <!-- 静态文件导入 -->
+        {% load static %}
         <!-- Bootstrap 的 CSS 文件 -->
+        <!-- Bootstrap导入方法1：导入在线脚本，可能由于这个网址不再支持而失效 -->
         <link rel="stylesheet"
               href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
               integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
               crossorigin="anonymous"/>
+        <!-- Bootstrap导入方法2：导入本地脚本，我已经把脚本下载了 -->
+        <link rel="stylesheet"
+              href="{% static 'css/bootstrap@4.6.2/bootstrap.min.css' %}"/>
         <!-- 窗口标题 -->
         <title>GDAD | G4-Disease Association Database</title>
-        <!-- 静态文件导入 -->
-        {% load static %}
         <!-- icon -->
         <link rel="shotcut icon"
               href="{% static 'gdad/GDAD_logo_blue_16x16.ico' %}"/>
@@ -28,7 +32,7 @@
                 <img decoding="async"
                      src="{% static 'gdad/GDAD_logo_white.png' %}"
                      alt="GDAD"
-                     style="width:32px">
+                     style="width:32px"/>
                 <span class="mx-3">GDAD</span>
             </a>
             <ul class="navbar-nav">
@@ -41,14 +45,18 @@
             {% block main %}
             {% endblock main %}
         </div>
-        <!-- Bootstrap4 JavaScript 文件是可选的。从以下两种建议中选择一个即可！ -->
-        <!-- 选项 1：jQuery 和 Bootstrap 集成包（集成了 Popper） -->
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-                integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-                crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-                crossorigin="anonymous"></script>
+        <!-- 选项1：在线加载jQuery 和 Bootstrap 集成包（集成了 Popper），如果网站不再支持了就会导致出错 -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+         -->
+        <!--         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" -->
+        <!--         crossorigin="anonymous"></script> -->
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+         -->
+        <!--         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" -->
+        <!--         crossorigin="anonymous"></script> -->
+        <!-- 选项2：本地加载jQuery 和 Bootstrap 集成包（集成了 Popper） -->
+        <script src="{% static 'js/jquery@3.5.1/jquery.slim.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap@4.6.2/bootstrap.bundle.min.js' %}"></script>
         <!-- 方便追加其他脚本内容 -->
         {% block script_addon %}
         {% endblock script_addon %}

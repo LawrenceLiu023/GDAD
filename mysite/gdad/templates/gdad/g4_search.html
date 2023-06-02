@@ -1,10 +1,15 @@
 {% extends "gdad/g4.html" %}
+<!-- 静态文件导入 -->
+{% load static %}
 {% block head_addon %}
     <!-- bootstrap-table -->
+    <!-- 选项1：导入在线的CSS文件，网站如果不再支持就会报错。 -->
+    <!-- <link rel="stylesheet" -->
+    <!--       href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css"/> -->
+    <!-- 选项2：导入本地的CSS文件。 -->
     <link rel="stylesheet"
-          href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css"/>
+          href="{% static 'css/bootstrap-table@1.21.4/bootstrap-table.min.css' %}"/>
 {% endblock head_addon %}
-{% load static %}
 {% block search_detail %}
     <!-- 显示查询条件 -->
     <!-- search_type=g4 -->
@@ -163,11 +168,16 @@
 {% endblock search_detail %}
 {% block script_addon %}
     <!-- bootstrap-table js -->
-    <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script>
-    <!-- bootstrap-table extension: table export -->
+    <!-- 选项1：导入在线JS -->
+    <!-- <script src="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.js"></script> -->
+    <!-- 选项2：导入本地JS -->
+    <script src="{%static 'js/bootstrap-table@1.21.4/bootstrap-table.min.js'%}"></script>
+    <!-- 导入bootstrap-table扩展插件: table export -->
+    <!-- 选项1：导入在线的JS -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/tableexport.jquery.plugin@1.10.21/tableExport.min.js"></script> -->
-    <!-- 这行似乎是另一种导入这个插件的方法，但是需要手动下载插件再指定路径 -->
-    <script type="text/javascript" src="{% static 'js/tableExport.min.js' %}"></script>
+    <!-- 选项2：导入本地的JS -->
+    <script type="text/javascript"
+            src="{% static 'js/bootstrap-table@1.21.4/extensions/export/tableExport.min.js' %}"></script>
     <!-- 导出表格 -->
     <script>
     $("#search_result_table").bootstrapTable({
