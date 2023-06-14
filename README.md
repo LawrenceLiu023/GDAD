@@ -27,6 +27,7 @@ GDAD的核心目的是构建G-四链体与疾病的相关性。G-四链体的数
 - `mysite`：GDAD的Django项目目录，其中为一个完整的项目，实际的Django项目开发只需要这一个文件夹。
 - `scripts`：一些脚本文件，用于数据格式化、数据导入、数据获取等功能。
 - `LICENSE`：许可证。
+- `pip_freeze.txt`: 开发环境中的Python包，若要安装相同的依赖环境，使用`pip install -r "./pip_freeze.txt"`。
 - `README.md`：本文档。
 
 ## 软件开发环境
