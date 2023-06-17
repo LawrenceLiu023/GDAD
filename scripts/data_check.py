@@ -188,6 +188,6 @@ def ccle_sample_info_cell_line_name_standardise(
     print("ccle_sample_nifo_cell_line_name_standardise完成。")
     return standardised_cell_line_name_dict
 
-
-if __name__ == "__main__":
-    print("Hello!")
+# 以下写的语句，只有执行本脚本时才会执行，如果import本脚本不会执行
+if __name__ == "__main__":  
+    print("Hello!")  # 没啥用，只是不写这句的话，IDE会提示我有语法错误

@@ -3,10 +3,8 @@
 """
 
 import os
-import numpy as np
+
 import pandas as pd
-import tqdm
-import swifter
 
 # g4数据表的字段名称列表
 G4_TABLE_FIELD_LIST = [
@@ -313,6 +311,7 @@ def gda_table_format(disgenet_gda_tsv_file_path: str) -> pd.DataFrame:
     return gda_table_df
 
 
+# 以下写的语句，只有执行本脚本时才会执行，如果import本脚本不会执行
 if __name__ == "__main__":
     # 结果写入的路径
     ALL_TABLE_FILE_DIR = (

@@ -8,8 +8,11 @@ import typing
 import numpy as np
 import pandas as pd
 import requests
-import swifter
 import tqdm
+
+# NOTE - 注意，需要在使用之前在DiGeNET官网注册账号:https://www.disgenet.org/signup/
+DISGENET_ACCOUNT = ""  # DisGeNET的用户名，例如:xxx@outlook.com
+DISGENET_PASSWORD = ""  # DisGeNET的密码
 
 
 def disgenet_read(disgenet_file_path: str) -> typing.Union[pd.DataFrame, None]:
@@ -85,8 +88,8 @@ def disgenet_api(
     # 这个例子中使用了python的默认http库
     # 使用下面的格式创建一个字典，把两个键的值改成DisGeNET的账号密码，如果没有账号密码，可以在这里创建一个：https://www.disgenet.org/signup/
     auth_params = {
-        "email": "LawrenceLiu_023@outlook.com",
-        "password": "liujiahuan104530",
+        "email": DISGENET_ACCOUNT,
+        "password": DISGENET_PASSWORD,
     }
     api_host = "https://www.disgenet.org/api"
     api_key = None
@@ -134,7 +137,7 @@ def disgenet_api(
         # 输入的是BRCA1的时候，本结果是包含五个字典的列表，字典都是每个疾病相关的信息，字典的key完全相同。
         # 如果没有找到，response.json()={'detail': "The query didn't return any results", 'status_code': 404}
     else:  # 如果有意外也返回空列表
-        print(f"disgenet_api错误：api_key获取失败。")
+        print("disgenet_api错误：api_key获取失败。")
         return []
 
     # 关闭会话
@@ -150,7 +153,7 @@ def disgenet_api(
         return []
 
     # 如果找到数据，列表肯定至少有一个元素。如果是没找到数据，会有"status_code"键，返回空列表。
-    if associated_disease_list[0].get("status_code", None) != None:
+    if associated_disease_list[0].get("status_code", None) is not None:
         return []
 
     return associated_disease_list
@@ -269,7 +272,7 @@ def disgenet_api_gene_symbol_array_search_combine(
 
     file_num = len(file_path_list)
     if file_num == 1:
-        print(f"disgenet_api_gene_symbol_array_search_combine错误：仅有一个文件，不需要合并。")
+        print("disgenet_api_gene_symbol_array_search_combine错误：仅有一个文件，不需要合并。")
         return pd.DataFrame([])
 
     # 开始读取文件
@@ -420,29 +423,32 @@ def find_ic(string: str, pattern: str) -> int:
     return search_result.start()
 
 
+# 以下写的语句，只有执行本脚本时才会执行，如果import本脚本不会执行
 if __name__ == "__main__":
-    # # 读取GENCODE数据库包含的全部基因名
-    # GENCODE_GENE_SYMBOL_FILE_PATH = "/mnt/disk2/liujh/workspaces/data/GENCODE/analysis_results/gencode_v19_promoter_gene_symbol.txt"
-    # gencode_gene_symbol_list = pd.read_csv(
-    #     GENCODE_GENE_SYMBOL_FILE_PATH,
-    #     header=None,
-    #     index_col=None,
-    #     sep="\t",
-    #     na_filter=False,
-    #     encoding="utf-8",
-    #     dtype=str,
-    # )
-    # gencode_gene_symbol_list = gencode_gene_symbol_list.iloc[:, 0]
-    # gencode_gene_symbol_list = list(gencode_gene_symbol_list)
+    # 读取GENCODE数据库包含的全部基因名，只需要得到一个名称的列表即可，不必使用完全相同的方法
+    GENCODE_GENE_SYMBOL_FILE_PATH = "/mnt/disk2/liujh/workspaces/data/GENCODE/analysis_results/gencode_v19_promoter_gene_symbol.txt"
+    gencode_gene_symbol_list = pd.read_csv(
+        GENCODE_GENE_SYMBOL_FILE_PATH,
+        header=None,
+        index_col=None,
+        sep="\t",
+        na_filter=False,
+        encoding="utf-8",
+        dtype=str,
+    )
+    gencode_gene_symbol_list = gencode_gene_symbol_list.iloc[:, 0]
+    gencode_gene_symbol_list = list(gencode_gene_symbol_list)
 
-    # # 根据基因名称查询对应的GDA数据
-    # DISGENET_API_CACHE_FILE_PATH = "这里填写查询结果的存放路径"
-    # disgenet_api_gene_symbol_array_search(
-    #     gene_symbol_array=gencode_gene_symbol_list,  # 基因名称列表
-    #     cache_file_path=DISGENET_API_CACHE_FILE_PATH,  # 查询结果的存放目录，用于实时保存，防止网络断开
-    #     start_index=0,  # 从下标为0的基因开始查询
-    # )
-    # # 即使一次性查询成功了，也建议使用disgenet_api_gene_symbol_array_search_combine()来处理一下结果，它不仅可以用来合并不同的结果，也可以用来去重
+    # 根据基因名称查询对应的GDA数据
+    DISGENET_API_CACHE_FILE_PATH = "这里填写查询结果的存放路径"
+    disgenet_api_gene_symbol_array_search(
+        gene_symbol_array=gencode_gene_symbol_list,  # 基因名称列表
+        cache_file_path=DISGENET_API_CACHE_FILE_PATH,  # 查询结果的存放目录，用于实时保存，防止网络断开
+        start_index=0,  # 从下标为0的基因开始查询
+    )
+    # 如果查询在中途由于网络等问题中断，可以看一下已经进行到多少个，然后接着从那个位置接着查询
+    # 假设在第1000个查询中断，后续查询从前面一些，例如第900个开始完全没问题，disgenet_api_gene_symbol_array_search_combine()合并时会去重
+    # 即使一次性查询成功了，也建议使用disgenet_api_gene_symbol_array_search_combine()来处理一下结果，它不仅可以用来合并不同的结果，也可以用来去重
 
     # 查询疾病名称包含了"breast"的GDA数据
     # DISGENET_CURATED_GENCODE_TSV_FILE_PATH = "/mnt/disk2/liujh/workspaces/20230221_database/analysis_results/disgenet_results/disgenet_gda_curated_gencode.tsv"
